@@ -63,3 +63,11 @@ build_script:
     - python build_scripts/build_usd.py -vvv --build C:/USDgen/build --src C:/USDgen/src c:/USDinst
     - cd c:\USDgen\build
     - dir
+
+after_build:
+    - cd c:\
+    - 7z a usd.zip c:\USDinst
+
+artifacts:
+  - path: usd.zip
+    name: USD

@@ -1861,7 +1861,7 @@ for dir in [context.usdInstDir, context.instDir, context.srcDir,
 
 try:
     # Download and install 3rd-party dependencies, followed by USD.
-    for dep in dependenciesToBuild + [USD]:
+    for dep in dependenciesToBuild:# + [USD]:
         PrintStatus("Installing {dep}...".format(dep=dep.name))
         dep.installer(context, 
                       buildArgs=context.GetBuildArguments(dep),
