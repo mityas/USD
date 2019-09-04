@@ -39,12 +39,16 @@ install:
     - ps: Update-AppveyorBuild -Version "$env:USD_YY_VERSION.$env:USD_MM_VERSION-$env:APPVEYOR_REPO_BRANCH-build$env:APPVEYOR_BUILD_NUMBER"
 
 cache:
-    - C:\USDgen\build\boost -> build_scripts/build_usd.py
-    - C:\USDgen\build\IlmBase -> build_scripts/build_usd.py
-    - C:\USDgen\build\OpenEXR -> build_scripts/build_usd.py
-    - C:\USDgen\build\OpenSubdiv-3_1_1 -> build_scripts/build_usd.py
-    - C:\USDgen\build\zlib-1.2.11 -> build_scripts/build_usd.py
-    - C:\USDgen\src -> build_scripts/build_usd.py
+    # - C:\USDgen\build\boost -> build_scripts/build_usd.py
+    # - C:\USDgen\build\IlmBase -> build_scripts/build_usd.py
+    # - C:\USDgen\build\OpenEXR -> build_scripts/build_usd.py
+    # - C:\USDgen\build\OpenSubdiv-3_1_1 -> build_scripts/build_usd.py
+    # - C:\USDgen\build\zlib-1.2.11 -> build_scripts/build_usd.py
+    # - C:\USDgen\src -> build_scripts/build_usd.py
+    - C:\USDgen
+
+build:
+  parallel: true
 
 init:
     - set PATH=c:/Python27-x64;c:/Python27-x64/Scripts;%PATH%
@@ -65,9 +69,13 @@ build_script:
     - dir
 
 after_build:
-    - cd c:\
+    - cd c:\projects\USD
     - 7z a usd.zip c:\USDinst
+    - 7z a usd_gen.zip c:\USDgen
 
 artifacts:
   - path: usd.zip
     name: USD
+
+  - path: usd_gen.zip
+    name: USD_gen
